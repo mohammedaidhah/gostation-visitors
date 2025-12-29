@@ -1043,6 +1043,38 @@
       });
     });
   </script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // استبدل هذا الجزء بالكود الذي نسخته من الخطوة رقم 1
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "gostation-visitors.firebaseapp.com",
+    projectId: "gostation-visitors",
+    storageBucket: "gostation-visitors.appspot.com",
+    messagingSenderId: "...",
+    appId: "..."
+  };
+
+  // تهيئة Firebase وقاعدة البيانات
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // مثال: دالة لإرسال البيانات عند الضغط على زر
+  window.saveData = async function() {
+    try {
+      const docRef = await addDoc(collection(db, "visitors"), {
+        name: "زائر جديد",
+        date: new Date().toLocaleString()
+      });
+      alert("تم التسجيل بنجاح في قاعدة البيانات!");
+    } catch (e) {
+      console.error("خطأ في التسجيل: ", e);
+      alert("فشل التسجيل، تأكد من إعدادات الحماية (Rules)");
+    }
+  }
+</script>
 </body>
 </html>
 
